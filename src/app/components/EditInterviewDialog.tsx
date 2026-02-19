@@ -1,18 +1,18 @@
 /**
- * Add Interview Dialog Component
+ * Edit Interview Dialog Component
  * 
- * Modal dialog for logging new interview rounds for a specific application.
- * Allows entering:
+ * Modal dialog for editing existing interview rounds.
+ * Allows updating:
  * - Interview round type (Phone Screen, Technical, Team Interview, etc.)
  * - Interview date
  * - Interview outcome (Passed, Failed, Pending, etc.)
  * - Interview notes and feedback
  * 
- * Used on the Application Detail page. Saves interview data to context/localStorage.
+ * Used on the Application Detail page. Updates interview data in context/localStorage.
  */
 
-import { useState } from "react";
-import { useApplications } from "../contexts/ApplicationContext";
+import { useState, useEffect } from "react";
+import { useApplications, Interview } from "../contexts/ApplicationContext";
 import { useNotifications } from "../contexts/NotificationContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -33,39 +33,38 @@ import {
   SelectValue,
 } from "../components/ui/select";
 
-interface AddInterviewDialogProps {
-  applicationId: string;
+interface EditInterviewDialogProps {
+  interview: Interview;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export function AddInterviewDialog({ applicationId, open, onOpenChange }: AddInterviewDialogProps) {
-  const { addInterview } = useApplications();
+export function EditInterviewDialog({ interview, open, onOpenChange }: EditInterviewDialogProps) {
+  const { updateInterview } = useApplications();
   const { addNotification } = useNotifications();
-  const [roundType, setRoundType] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-  const [notes, setNotes] = useState("");
-  const [outcome, setOutcome] = useState("Pending");
+  const [roundType, setRoundType] = useState(interview.roundType);
+  const [date, setDate] = useState(interview.date);
+  const [notes, setNotes] = useState(interview.notes);
+  const [outcome, setOutcome] = useState(interview.outcome);
+
+  useEffect(() => {
+    setRoundType(interview.roundType);
+    setDate(interview.date);
+    setNotes(interview.notes);
+    setOutcome(interview.outcome);
+  }, [interview]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    addInterview({
-      applicationId,
+    updateInterview(interview.id, {
       roundType,
       date,
       notes,
       outcome,
     });
 
-    addNotification("success", "Interview added!", `${roundType} has been added to your timeline.`);
-    
-    // Reset form
-    setRoundType("");
-    setDate(new Date().toISOString().split("T")[0]);
-    setNotes("");
-    setOutcome("Pending");
-    
+    addNotification("success", "Interview updated!", `${roundType} details have been saved.`);
     onOpenChange(false);
   };
 
@@ -73,9 +72,9 @@ export function AddInterviewDialog({ applicationId, open, onOpenChange }: AddInt
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Add Interview</DialogTitle>
+          <DialogTitle>Edit Interview</DialogTitle>
           <DialogDescription>
-            Record details about an interview round
+            Update details about this interview round
           </DialogDescription>
         </DialogHeader>
 
@@ -141,7 +140,7 @@ export function AddInterviewDialog({ applicationId, open, onOpenChange }: AddInt
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit">Add Interview</Button>
+            <Button type="submit">Save Changes</Button>
           </div>
         </form>
       </DialogContent>

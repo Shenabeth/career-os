@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 import { useApplications, Application } from "../contexts/ApplicationContext";
+import { useNotifications } from "../contexts/NotificationContext";
 import { Navbar } from "../components/Navbar";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -38,12 +39,12 @@ import {
 import { Plus, Search, Pencil, Trash2 } from "lucide-react";
 import { AddApplicationDialog } from "../components/AddApplicationDialog";
 import { EditApplicationDialog } from "../components/EditApplicationDialog";
-import { toast } from "sonner";
 
 export function ApplicationsPage() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { applications, deleteApplication } = useApplications();
+  const { addNotification } = useNotifications();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -71,18 +72,18 @@ export function ApplicationsPage() {
     return matchesSearch && matchesStatus;
   });
 
-  const getStatusColor = (status: string) => {
+  const getStatusBadgeClasses = (status: string) => {
     switch (status) {
       case "applied":
-        return "default";
+        return "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 border-transparent";
       case "interview":
-        return "secondary";
+        return "bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300 border-transparent";
       case "offer":
-        return "default";
+        return "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-300 border-transparent";
       case "rejected":
-        return "destructive";
+        return "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300 border-transparent";
       default:
-        return "default";
+        return "bg-slate-100 text-slate-700 dark:bg-slate-500/20 dark:text-slate-300 border-transparent";
     }
   };
 
@@ -93,19 +94,19 @@ export function ApplicationsPage() {
   const handleDelete = (id: string, company: string) => {
     if (confirm(`Are you sure you want to delete the application for ${company}?`)) {
       deleteApplication(id);
-      toast.success("Application deleted");
+      addNotification("success", "Application deleted", `${company} has been removed from your applications.`);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col">
       <Navbar />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 flex-1">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl mb-2">Applications</h1>
-            <p className="text-slate-600">Manage all your job applications</p>
+            <h1 className="text-4xl mb-2 dark:text-white">Applications</h1>
+            <p className="text-slate-600 dark:text-slate-400">Manage all your job applications in one place</p>
           </div>
           <Button onClick={() => setIsAddDialogOpen(true)} className="gap-2">
             <Plus className="h-4 w-4" />
@@ -139,7 +140,7 @@ export function ApplicationsPage() {
         </div>
 
         {/* Applications Table */}
-        <div className="bg-white rounded-lg border">
+        <div className="bg-white dark:bg-slate-800 rounded-lg border dark:border-slate-700">
           {filteredApplications.length > 0 ? (
             <Table>
               <TableHeader>
@@ -156,15 +157,15 @@ export function ApplicationsPage() {
                 {filteredApplications.map((app) => (
                   <TableRow
                     key={app.id}
-                    className="cursor-pointer hover:bg-slate-50"
+                    className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 dark:border-slate-700"
                     onClick={() => navigate(`/applications/${app.id}`)}
                   >
-                    <TableCell>{app.company}</TableCell>
-                    <TableCell>{app.role}</TableCell>
-                    <TableCell>{app.location}</TableCell>
-                    <TableCell>{new Date(app.appliedDate).toLocaleDateString()}</TableCell>
+                    <TableCell className="dark:text-slate-200">{app.company}</TableCell>
+                    <TableCell className="dark:text-slate-200">{app.role}</TableCell>
+                    <TableCell className="dark:text-slate-300">{app.location}</TableCell>
+                    <TableCell className="dark:text-slate-300">{new Date(app.appliedDate).toLocaleDateString()}</TableCell>
                     <TableCell>
-                      <Badge variant={getStatusColor(app.status)}>
+                      <Badge className={getStatusBadgeClasses(app.status)}>
                         {getStatusLabel(app.status)}
                       </Badge>
                     </TableCell>
@@ -197,7 +198,7 @@ export function ApplicationsPage() {
               </TableBody>
             </Table>
           ) : (
-            <div className="text-center py-12 text-slate-500">
+            <div className="text-center py-12 text-slate-500 dark:text-slate-400">
               <p>No applications found</p>
               {applications.length === 0 && (
                 <Button
@@ -225,6 +226,13 @@ export function ApplicationsPage() {
           onOpenChange={(open) => !open && setEditingApplication(null)}
         />
       )}
+
+      {/* Footer */}
+      <footer className="border-t bg-white dark:bg-slate-800 dark:border-slate-700 py-8 mt-auto">
+        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400">
+          <p>© 2026 CareerOS. Built by Shenabeth Jenkins with React and designed for job seekers.</p>
+        </div>
+      </footer>
     </div>
   );
 }

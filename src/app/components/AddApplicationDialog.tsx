@@ -13,6 +13,7 @@
 
 import { useState } from "react";
 import { useApplications, ApplicationStatus } from "../contexts/ApplicationContext";
+import { useNotifications } from "../contexts/NotificationContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -31,7 +32,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
-import { toast } from "sonner";
 
 interface AddApplicationDialogProps {
   open: boolean;
@@ -40,6 +40,7 @@ interface AddApplicationDialogProps {
 
 export function AddApplicationDialog({ open, onOpenChange }: AddApplicationDialogProps) {
   const { addApplication } = useApplications();
+  const { addNotification } = useNotifications();
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [location, setLocation] = useState("");
@@ -65,7 +66,7 @@ export function AddApplicationDialog({ open, onOpenChange }: AddApplicationDialo
       notes: notes || undefined,
     });
 
-    toast.success("Application added successfully!");
+    addNotification("success", "Application added!", `${company} - ${role} has been added to your applications.`);
     
     // Reset form
     setCompany("");

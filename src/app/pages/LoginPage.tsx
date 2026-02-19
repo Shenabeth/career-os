@@ -9,16 +9,17 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
+import { useNotifications } from "../contexts/NotificationContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Briefcase, AlertCircle } from "lucide-react";
-import { toast } from "sonner";
 
 export function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { addNotification } = useNotifications();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -32,13 +33,15 @@ export function LoginPage() {
     try {
       const success = await login(email, password);
       if (success) {
-        toast.success("Welcome back!");
+        addNotification("success", "Welcome back!", "You've successfully logged in.");
         navigate("/dashboard");
       } else {
         setError("Invalid email or password");
+        addNotification("error", "Login failed", "Please check your credentials and try again.");
       }
     } catch (err) {
       setError("An error occurred. Please try again.");
+      addNotification("error", "Login error", "Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -48,20 +51,22 @@ export function LoginPage() {
     setIsLoading(true);
     const success = await login("demo@offertrack.com", "demo123");
     if (success) {
-      toast.success("Logged in with demo account!");
+      addNotification("success", "Logged in with demo account!", "Explore CareerOS with pre-loaded sample data.");
       navigate("/dashboard");
+    } else {
+      addNotification("error", "Demo login failed", "Unable to access demo account.");
     }
     setIsLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 flex flex-col">
       {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 dark:border-slate-700">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
-            <Briefcase className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl">CareerOS</span>
+            <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+            <span className="text-2xl dark:text-white">CareerOS</span>
           </div>
           <div className="flex gap-3">
             <Button variant="ghost" onClick={() => navigate("/login")}>
@@ -72,7 +77,7 @@ export function LoginPage() {
         </div>
       </header>
 
-      <div className="flex items-center justify-center p-4 min-h-[calc(100vh-80px)]">
+      <div className="flex items-center justify-center p-4 flex-1">
         <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle>Welcome Back</CardTitle>
@@ -120,7 +125,7 @@ export function LoginPage() {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-slate-500">Or</span>
+                <span className="bg-card px-2 text-slate-500 dark:text-slate-400">Or</span>
               </div>
             </div>
 
@@ -144,6 +149,13 @@ export function LoginPage() {
         </CardContent>
       </Card>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t bg-white dark:bg-slate-800 dark:border-slate-700 py-8 mt-auto">
+        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400">
+          <p>© 2026 CareerOS. Built by Shenabeth Jenkins with React and designed for job seekers.</p>
+        </div>
+      </footer>
     </div>
   );
 }

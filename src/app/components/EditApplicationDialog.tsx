@@ -13,6 +13,7 @@
 
 import { useState } from "react";
 import { useApplications, Application, ApplicationStatus } from "../contexts/ApplicationContext";
+import { useNotifications } from "../contexts/NotificationContext";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -31,7 +32,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
-import { toast } from "sonner";
 
 interface EditApplicationDialogProps {
   application: Application;
@@ -41,6 +41,7 @@ interface EditApplicationDialogProps {
 
 export function EditApplicationDialog({ application, open, onOpenChange }: EditApplicationDialogProps) {
   const { updateApplication } = useApplications();
+  const { addNotification } = useNotifications();
   const [company, setCompany] = useState(application.company);
   const [role, setRole] = useState(application.role);
   const [location, setLocation] = useState(application.location);
@@ -66,7 +67,7 @@ export function EditApplicationDialog({ application, open, onOpenChange }: EditA
       notes: notes || undefined,
     });
 
-    toast.success("Application updated successfully!");
+    addNotification("success", "Application updated!", `Changes to ${company} - ${role} have been saved.`);
     onOpenChange(false);
   };
 

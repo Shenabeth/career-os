@@ -63,18 +63,18 @@ export function ApplicationDetailPage() {
     );
   }
 
-  const getStatusColor = (status: string) => {
+  const getStatusBadgeClasses = (status: string) => {
     switch (status) {
       case "applied":
-        return "default";
+        return "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300 border-transparent";
       case "interview":
-        return "secondary";
+        return "bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300 border-transparent";
       case "offer":
-        return "default";
+        return "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-300 border-transparent";
       case "rejected":
-        return "destructive";
+        return "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300 border-transparent";
       default:
-        return "default";
+        return "bg-slate-100 text-slate-700 dark:bg-slate-500/20 dark:text-slate-300 border-transparent";
     }
   };
 
@@ -83,10 +83,10 @@ export function ApplicationDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col">
       <Navbar />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 flex-1">
         <div className="mb-6">
           <Button
             variant="ghost"
@@ -99,11 +99,11 @@ export function ApplicationDetailPage() {
 
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-3xl mb-2">{application.role}</h1>
-              <p className="text-xl text-slate-600">{application.company}</p>
+              <h1 className="text-3xl mb-2 dark:text-white">{application.role}</h1>
+              <p className="text-xl text-slate-600 dark:text-slate-400">{application.company}</p>
             </div>
             <div className="flex items-center gap-3">
-              <Badge variant={getStatusColor(application.status)}>
+              <Badge className={getStatusBadgeClasses(application.status)}>
                 {getStatusLabel(application.status)}
               </Badge>
               <Button
@@ -129,35 +129,35 @@ export function ApplicationDetailPage() {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-3">
-                    <Building2 className="h-5 w-5 text-slate-400" />
+                    <Building2 className="h-5 w-5 text-slate-400 dark:text-slate-500" />
                     <div>
-                      <p className="text-sm text-slate-500">Company</p>
-                      <p>{application.company}</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">Company</p>
+                      <p className="dark:text-slate-200">{application.company}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5 text-slate-400" />
+                    <MapPin className="h-5 w-5 text-slate-400 dark:text-slate-500" />
                     <div>
-                      <p className="text-sm text-slate-500">Location</p>
-                      <p>{application.location}</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">Location</p>
+                      <p className="dark:text-slate-200">{application.location}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <Calendar className="h-5 w-5 text-slate-400" />
+                    <Calendar className="h-5 w-5 text-slate-400 dark:text-slate-500" />
                     <div>
-                      <p className="text-sm text-slate-500">Date Applied</p>
-                      <p>{new Date(application.appliedDate).toLocaleDateString()}</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">Date Applied</p>
+                      <p className="dark:text-slate-200">{new Date(application.appliedDate).toLocaleDateString()}</p>
                     </div>
                   </div>
 
                   {application.salaryRange && (
                     <div className="flex items-center gap-3">
-                      <DollarSign className="h-5 w-5 text-slate-400" />
+                      <DollarSign className="h-5 w-5 text-slate-400 dark:text-slate-500" />
                       <div>
-                        <p className="text-sm text-slate-500">Salary Range</p>
-                        <p>{application.salaryRange}</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">Salary Range</p>
+                        <p className="dark:text-slate-200">{application.salaryRange}</p>
                       </div>
                     </div>
                   )}
@@ -172,7 +172,7 @@ export function ApplicationDetailPage() {
                           href={application.jobPostingUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-blue-600 hover:underline"
+                          className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline"
                         >
                           <ExternalLink className="h-4 w-4" />
                           View Job Posting
@@ -183,7 +183,7 @@ export function ApplicationDetailPage() {
                           href={application.companyWebsite}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-blue-600 hover:underline"
+                          className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline"
                         >
                           <ExternalLink className="h-4 w-4" />
                           Company Website
@@ -197,8 +197,8 @@ export function ApplicationDetailPage() {
                   <>
                     <Separator />
                     <div>
-                      <p className="text-sm text-slate-500 mb-2">Notes</p>
-                      <p className="whitespace-pre-wrap">{application.notes}</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Notes</p>
+                      <p className="whitespace-pre-wrap dark:text-slate-200">{application.notes}</p>
                     </div>
                   </>
                 )}
@@ -222,7 +222,7 @@ export function ApplicationDetailPage() {
                 {interviews.length > 0 ? (
                   <InterviewTimeline interviews={interviews} />
                 ) : (
-                  <div className="text-center py-8 text-slate-500">
+                  <div className="text-center py-8 text-slate-500 dark:text-slate-400">
                     <p>No interviews recorded yet</p>
                     <Button
                       variant="link"
@@ -269,12 +269,12 @@ export function ApplicationDetailPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <p className="text-sm text-slate-500">Total Interviews</p>
-                  <p className="text-2xl">{interviews.length}</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Total Interviews</p>
+                  <p className="text-2xl dark:text-white">{interviews.length}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-500">Days Since Applied</p>
-                  <p className="text-2xl">
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Days Since Applied</p>
+                  <p className="text-2xl dark:text-white">
                     {Math.floor(
                       (new Date().getTime() - new Date(application.appliedDate).getTime()) /
                         (1000 * 60 * 60 * 24)
@@ -300,6 +300,13 @@ export function ApplicationDetailPage() {
         open={isAddInterviewOpen}
         onOpenChange={setIsAddInterviewOpen}
       />
+
+      {/* Footer */}
+      <footer className="border-t bg-white dark:bg-slate-800 dark:border-slate-700 py-8 mt-auto">
+        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400">
+          <p>© 2026 CareerOS. Built by Shenabeth Jenkins with React and designed for job seekers.</p>
+        </div>
+      </footer>
     </div>
   );
 }

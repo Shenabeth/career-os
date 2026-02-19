@@ -5,13 +5,19 @@
  * - Add, update, and delete job applications
  * - Manage interview rounds for each application
  * - Query applications and interviews
- * - Persist data to localStorage
- * - Load demo data for demo user account
+ * - Persist data to localStorage (except for demo user)
+ * - Load fresh, immutable demo data for demo account
+ * 
+ * Demo Account Behavior:
+ * - Demo user data is NEVER saved to localStorage
+ * - Demo data is always loaded fresh from constants
+ * - All changes to demo data are session-only and reset on page refresh
+ * - This ensures demo account never conflicts with real user accounts
  * 
  * Provides useApplications() hook for accessing application data throughout the app.
  */
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 export type ApplicationStatus = "applied" | "interview" | "offer" | "rejected";
 
@@ -202,41 +208,95 @@ const demoInterviews: Interview[] = [
 export function ApplicationProvider({ children }: { children: React.ReactNode }) {
   const [applications, setApplications] = useState<Application[]>([]);
   const [interviews, setInterviews] = useState<Interview[]>([]);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+  // Function to load user data
+  const loadUserData = useCallback((userId: string) => {
+    if (userId === "demo") {
+      // Always load fresh demo data, never from localStorage
+      setApplications(demoApplications);
+      setInterviews(demoInterviews);
+    } else {
+      // Load regular user data from localStorage
+      const storedApps = localStorage.getItem(`offertrack_applications_${userId}`);
+      if (storedApps) {
+        setApplications(JSON.parse(storedApps));
+      } else {
+        setApplications([]);
+      }
+
+      const storedInterviews = localStorage.getItem(`offertrack_interviews_${userId}`);
+      if (storedInterviews) {
+        setInterviews(JSON.parse(storedInterviews));
+      } else {
+        setInterviews([]);
+      }
+    }
+    setCurrentUserId(userId);
+  }, []);
 
   useEffect(() => {
+    // Clean up any accidentally saved demo data
+    localStorage.removeItem("offertrack_applications_demo");
+    localStorage.removeItem("offertrack_interviews_demo");
+
     // Load data from localStorage
     const storedUser = localStorage.getItem("offertrack_user");
     if (storedUser) {
       const user = JSON.parse(storedUser);
-      
-      // Load applications
-      const storedApps = localStorage.getItem(`offertrack_applications_${user.id}`);
-      if (storedApps) {
-        setApplications(JSON.parse(storedApps));
-      } else if (user.id === "demo") {
-        // Load demo data for demo user
-        setApplications(demoApplications);
-      }
-
-      // Load interviews
-      const storedInterviews = localStorage.getItem(`offertrack_interviews_${user.id}`);
-      if (storedInterviews) {
-        setInterviews(JSON.parse(storedInterviews));
-      } else if (user.id === "demo") {
-        setInterviews(demoInterviews);
-      }
+      loadUserData(user.id);
     }
-  }, []);
+
+    // Listen for storage changes (login/logout/user switch)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "offertrack_user") {
+        if (e.newValue) {
+          const user = JSON.parse(e.newValue);
+          loadUserData(user.id);
+        } else {
+          // User logged out
+          setApplications([]);
+          setInterviews([]);
+          setCurrentUserId(null);
+        }
+      }
+    };
+
+    // Listen for custom event (for same-tab login/logout)
+    const handleUserChange = () => {
+      const storedUser = localStorage.getItem("offertrack_user");
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        loadUserData(user.id);
+      } else {
+        setApplications([]);
+        setInterviews([]);
+        setCurrentUserId(null);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("userChange", handleUserChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("userChange", handleUserChange);
+    };
+  }, [loadUserData]);
 
   useEffect(() => {
-    // Save to localStorage when data changes
+    // Save to localStorage when data changes (but never for demo user)
     const storedUser = localStorage.getItem("offertrack_user");
     if (storedUser) {
       const user = JSON.parse(storedUser);
-      localStorage.setItem(`offertrack_applications_${user.id}`, JSON.stringify(applications));
-      localStorage.setItem(`offertrack_interviews_${user.id}`, JSON.stringify(interviews));
+      
+      // Skip saving for demo user
+      if (user.id !== "demo" && currentUserId === user.id) {
+        localStorage.setItem(`offertrack_applications_${user.id}`, JSON.stringify(applications));
+        localStorage.setItem(`offertrack_interviews_${user.id}`, JSON.stringify(interviews));
+      }
     }
-  }, [applications, interviews]);
+  }, [applications, interviews, currentUserId]);
 
   const addApplication = (application: Omit<Application, "id" | "userId" | "createdAt">) => {
     const storedUser = localStorage.getItem("offertrack_user");

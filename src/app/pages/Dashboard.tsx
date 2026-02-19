@@ -61,11 +61,11 @@ export function Dashboard() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "applied": return "bg-blue-100 text-blue-700";
-      case "interview": return "bg-purple-100 text-purple-700";
-      case "offer": return "bg-green-100 text-green-700";
-      case "rejected": return "bg-red-100 text-red-700";
-      default: return "bg-gray-100 text-gray-700";
+      case "applied": return "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300";
+      case "interview": return "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300";
+      case "offer": return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300";
+      case "rejected": return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300";
+      default: return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
     }
   };
 
@@ -74,13 +74,13 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col">
       <Navbar />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 flex-1">
         <div className="mb-8">
-          <h1 className="text-3xl mb-2">Dashboard</h1>
-          <p className="text-slate-600">Track your job search progress and insights</p>
+          <h1 className="text-3xl mb-2 dark:text-white">Dashboard</h1>
+          <p className="text-slate-600 dark:text-slate-400">Track your job search progress and insights</p>
         </div>
 
         {/* Stats Cards */}
@@ -88,50 +88,50 @@ export function Dashboard() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm">Total Applications</CardTitle>
-              <Briefcase className="h-4 w-4 text-slate-500" />
+              <Briefcase className="h-4 w-4 text-slate-500 dark:text-slate-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl">{totalApplications}</div>
+              <div className="text-2xl dark:text-white">{totalApplications}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm">Interviews</CardTitle>
-              <Calendar className="h-4 w-4 text-slate-500" />
+              <Calendar className="h-4 w-4 text-slate-500 dark:text-slate-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl">{interviews}</div>
+              <div className="text-2xl dark:text-white">{interviews}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm">Offers</CardTitle>
-              <CheckCircle className="h-4 w-4 text-slate-500" />
+              <CheckCircle className="h-4 w-4 text-slate-500 dark:text-slate-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl">{offers}</div>
+              <div className="text-2xl dark:text-white">{offers}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm">Rejections</CardTitle>
-              <XCircle className="h-4 w-4 text-slate-500" />
+              <XCircle className="h-4 w-4 text-slate-500 dark:text-slate-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl">{rejections}</div>
+              <div className="text-2xl dark:text-white">{rejections}</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm">Response Rate</CardTitle>
-              <TrendingUp className="h-4 w-4 text-slate-500" />
+              <TrendingUp className="h-4 w-4 text-slate-500 dark:text-slate-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl">{responseRate}%</div>
+              <div className="text-2xl dark:text-white">{responseRate}%</div>
             </CardContent>
           </Card>
         </div>
@@ -147,11 +147,28 @@ export function Dashboard() {
               {statusData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={statusData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="value" fill="#3b82f6" radius={[8, 8, 0, 0]}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-slate-300 dark:stroke-slate-600" />
+                    <XAxis 
+                      dataKey="name" 
+                      className="fill-slate-500 dark:fill-slate-400" 
+                      tick={{ fontSize: 14 }}
+                    />
+                    <YAxis 
+                      className="fill-slate-500 dark:fill-slate-400" 
+                      tick={{ fontSize: 14 }}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: 'hsl(var(--popover))', 
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '0.5rem',
+                        padding: '8px 12px'
+                      }}
+                      labelStyle={{ color: 'hsl(var(--popover-foreground))', fontWeight: 600, marginBottom: '4px' }}
+                      itemStyle={{ color: 'hsl(var(--popover-foreground))' }}
+                      cursor={{ fill: 'rgba(148, 163, 184, 0.1)' }}
+                    />
+                    <Bar dataKey="value" fill="#3b82f6" radius={[8, 8, 0, 0]} activeBar={{ opacity: 0.8 }}>
                       {statusData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
@@ -159,7 +176,7 @@ export function Dashboard() {
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-[300px] flex items-center justify-center text-slate-500">
+                <div className="h-[300px] flex items-center justify-center text-slate-500 dark:text-slate-400">
                   No applications yet. Add your first application to see insights!
                 </div>
               )}
@@ -182,14 +199,21 @@ export function Dashboard() {
                       labelLine={false}
                       label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                       outerRadius={100}
-                      fill="#8884d8"
                       dataKey="value"
                     >
                       {statusData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
-                    <Tooltip />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: 'hsl(var(--popover))', 
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '0.5rem',
+                        padding: '8px 12px'
+                      }}
+                      itemStyle={{ color: 'hsl(var(--popover-foreground))' }}
+                    />
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
@@ -212,7 +236,7 @@ export function Dashboard() {
                 {recentApplications.map((app) => (
                   <div
                     key={app.id}
-                    className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                    className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer"
                     onClick={() => navigate(`/applications/${app.id}`)}
                   >
                     <div className="flex items-center gap-4">
@@ -220,12 +244,12 @@ export function Dashboard() {
                         {app.company.charAt(0)}
                       </div>
                       <div>
-                        <p className="font-medium">{app.role}</p>
-                        <p className="text-sm text-slate-600">{app.company}</p>
+                        <p className="font-medium dark:text-white">{app.role}</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">{app.company}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2 text-sm text-slate-600">
+                      <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                         <Clock className="h-4 w-4" />
                         {new Date(app.appliedDate).toLocaleDateString()}
                       </div>
@@ -237,14 +261,21 @@ export function Dashboard() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 text-slate-500">
-                <Briefcase className="h-12 w-12 mx-auto mb-4 text-slate-300" />
+              <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+                <Briefcase className="h-12 w-12 mx-auto mb-4 text-slate-300 dark:text-slate-600" />
                 <p>No applications yet. Start by adding your first application!</p>
               </div>
             )}
           </CardContent>
         </Card>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t bg-white dark:bg-slate-800 dark:border-slate-700 py-8 mt-auto">
+        <div className="container mx-auto px-4 text-center text-slate-600 dark:text-slate-400">
+          <p>© 2026 CareerOS. Built by Shenabeth Jenkins with React and designed for job seekers.</p>
+        </div>
+      </footer>
     </div>
   );
 }
