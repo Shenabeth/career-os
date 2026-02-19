@@ -1,0 +1,164 @@
+import { useNavigate } from "react-router";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Briefcase, BarChart3, CheckCircle, Users } from "lucide-react";
+
+export function LandingPage() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Briefcase className="h-8 w-8 text-blue-600" />
+            <span className="text-2xl">OfferTrack</span>
+          </div>
+          <div className="flex gap-3">
+            <Button variant="ghost" onClick={() => navigate("/login")}>
+              Log In
+            </Button>
+            <Button onClick={() => navigate("/signup")}>Sign Up</Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-20 text-center">
+        <h1 className="text-5xl mb-6 max-w-3xl mx-auto">
+          Track Your Job Applications with Confidence
+        </h1>
+        <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+          Stay organized throughout your job search. Manage applications, track interviews, 
+          and analyze your progress all in one place.
+        </p>
+        <div className="flex gap-4 justify-center">
+          <Button size="lg" onClick={() => navigate("/signup")}>
+            Get Started Free
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={() => navigate("/login")}
+          >
+            Try Demo Account
+          </Button>
+        </div>
+        <p className="text-sm text-slate-500 mt-4">
+          Demo credentials: demo@offertrack.com / demo123
+        </p>
+      </section>
+
+      {/* Features Section */}
+      <section className="container mx-auto px-4 py-16">
+        <h2 className="text-3xl text-center mb-12">Everything You Need to Land Your Dream Job</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card>
+            <CardHeader>
+              <Briefcase className="h-10 w-10 text-blue-600 mb-2" />
+              <CardTitle>Application Tracking</CardTitle>
+              <CardDescription>
+                Organize all your job applications in one place with detailed information and notes
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <Users className="h-10 w-10 text-green-600 mb-2" />
+              <CardTitle>Interview Management</CardTitle>
+              <CardDescription>
+                Track interview rounds, add notes, and monitor your progress through each stage
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <BarChart3 className="h-10 w-10 text-purple-600 mb-2" />
+              <CardTitle>Analytics Dashboard</CardTitle>
+              <CardDescription>
+                Visualize your job search with insights on applications, response rates, and trends
+              </CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CheckCircle className="h-10 w-10 text-orange-600 mb-2" />
+              <CardTitle>Status Updates</CardTitle>
+              <CardDescription>
+                Keep track of where each application stands from applied to offer received
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="container mx-auto px-4 py-16">
+        <h2 className="text-3xl text-center mb-12">Simple, Yet Powerful</h2>
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl mx-auto mb-4">
+              1
+            </div>
+            <h3 className="text-xl mb-2">Add Applications</h3>
+            <p className="text-slate-600">
+              Quickly add job applications with company details, role, and salary information
+            </p>
+          </div>
+
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl mx-auto mb-4">
+              2
+            </div>
+            <h3 className="text-xl mb-2">Track Progress</h3>
+            <p className="text-slate-600">
+              Update status as you move through the process and log interview details
+            </p>
+          </div>
+
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl mx-auto mb-4">
+              3
+            </div>
+            <h3 className="text-xl mb-2">Get Insights</h3>
+            <p className="text-slate-600">
+              View analytics on your job search and optimize your application strategy
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="container mx-auto px-4 py-20 text-center">
+        <Card className="max-w-2xl mx-auto bg-gradient-to-br from-blue-600 to-blue-700 text-white border-0">
+          <CardHeader>
+            <CardTitle className="text-3xl text-white">Ready to Get Started?</CardTitle>
+            <CardDescription className="text-blue-100 text-lg">
+              Join thousands of job seekers who are taking control of their job search
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={() => navigate("/signup")}
+            >
+              Create Free Account
+            </Button>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t bg-white py-8 mt-20">
+        <div className="container mx-auto px-4 text-center text-slate-600">
+          <p>© 2026 OfferTrack. Built with React and designed for job seekers.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
