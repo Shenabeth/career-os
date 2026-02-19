@@ -1,7 +1,7 @@
 
   # Job Application Tracker
 
-  This is a code bundle for Job Application Tracker. The original project is available at https://www.figma.com/design/08h3WZdodLc5O914pEm0jL/Job-Application-Tracker.
+  This is a code bundle for CareerOS - a job application tracker.
 
   ## Running the code
 
