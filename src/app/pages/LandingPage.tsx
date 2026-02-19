@@ -9,7 +9,7 @@
 import { useNavigate } from "react-router";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
-import { Briefcase, BarChart3, CheckCircle, Users } from "lucide-react";
+import { Briefcase, BarChart3, CheckCircle, Users, ClipboardList } from "lucide-react";
 
 export function LandingPage() {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ export function LandingPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card>
             <CardHeader className="pb-6">
-              <Briefcase className="h-10 w-10 text-blue-600 dark:text-blue-400 mb-2" />
+              <ClipboardList className="h-10 w-10 text-blue-600 dark:text-blue-400 mb-2" />
               <CardTitle>Application Tracking</CardTitle>
               <CardDescription>
                 Organize all your job applications in one place with detailed information and notes
