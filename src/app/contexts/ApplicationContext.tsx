@@ -1,3 +1,16 @@
+/**
+ * Application Management Context & Provider
+ * 
+ * Manages all job application data and operations:
+ * - Add, update, and delete job applications
+ * - Manage interview rounds for each application
+ * - Query applications and interviews
+ * - Persist data to localStorage
+ * - Load demo data for demo user account
+ * 
+ * Provides useApplications() hook for accessing application data throughout the app.
+ */
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export type ApplicationStatus = "applied" | "interview" | "offer" | "rejected";

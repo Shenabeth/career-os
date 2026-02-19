@@ -1,3 +1,11 @@
+/**
+ * Landing Page
+ * 
+ * Public page displayed to unauthenticated users. Showcases CareerOS features,
+ * benefits, and provides navigation to login/signup. Includes hero section,
+ * feature highlights, how-it-works guide, and call-to-action buttons.
+ */
+
 import { useNavigate } from "react-router";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
@@ -13,7 +21,7 @@ export function LandingPage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Briefcase className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl">OfferTrack</span>
+            <span className="text-2xl">CareerOS</span>
           </div>
           <div className="flex gap-3">
             <Button variant="ghost" onClick={() => navigate("/login")}>
@@ -156,7 +164,7 @@ export function LandingPage() {
       {/* Footer */}
       <footer className="border-t bg-white py-8 mt-20">
         <div className="container mx-auto px-4 text-center text-slate-600">
-          <p>© 2026 OfferTrack. Built with React and designed for job seekers.</p>
+          <p>© 2026 CareerOS. Built with React and designed for job seekers.</p>
         </div>
       </footer>
     </div>

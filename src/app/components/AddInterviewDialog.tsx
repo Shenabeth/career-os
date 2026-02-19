@@ -1,3 +1,16 @@
+/**
+ * Add Interview Dialog Component
+ * 
+ * Modal dialog for logging new interview rounds for a specific application.
+ * Allows entering:
+ * - Interview round type (Phone Screen, Technical, Team Interview, etc.)
+ * - Interview date
+ * - Interview outcome (Passed, Failed, Pending, etc.)
+ * - Interview notes and feedback
+ * 
+ * Used on the Application Detail page. Saves interview data to context/localStorage.
+ */
+
 import { useState } from "react";
 import { useApplications } from "../contexts/ApplicationContext";
 import { Button } from "../components/ui/button";

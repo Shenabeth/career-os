@@ -1,3 +1,16 @@
+/**
+ * Edit Application Dialog Component
+ * 
+ * Modal dialog for editing an existing job application. Allows updating:
+ * - Company, role, location, salary range
+ * - Application date and status
+ * - Job posting URL and company website
+ * - Additional notes and details
+ * 
+ * Used on the Application Detail page. Pre-fills form with current application data.
+ * Saves changes to context/localStorage on submit.
+ */
+
 import { useState } from "react";
 import { useApplications, Application, ApplicationStatus } from "../contexts/ApplicationContext";
 import { Button } from "../components/ui/button";

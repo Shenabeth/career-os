@@ -1,3 +1,11 @@
+/**
+ * Button Component (Radix UI)
+ * 
+ * Reusable button component with multiple style variants (default, destructive, outline, ghost, etc.).
+ * Built on top of Radix UI with Tailwind CSS styling and class-variance-authority for variant management.
+ * Used throughout the application for user actions.
+ */
+
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";

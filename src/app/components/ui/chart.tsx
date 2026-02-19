@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Chart Component (Recharts Integration)
+ * 
+ * Wrapper components for Recharts charting library with consistent styling.
+ * Provides ChartContainer and other utilities for building responsive, styled charts.
+ * Used in the Dashboard to display analytics visualizations (pie charts, bar charts).
+ */
+
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 

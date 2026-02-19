@@ -1,5 +1,13 @@
 "use client";
 
+/**
+ * Table Component (HTML)
+ * 
+ * Semantic HTML table components (Table, TableHeader, TableBody, TableHead, TableRow, TableCell)
+ * with Tailwind CSS styling. Used to display applications list on the Applications page
+ * with columns for company, role, status, and action buttons.
+ */
+
 import * as React from "react";
 
 import { cn } from "./utils";

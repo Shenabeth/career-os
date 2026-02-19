@@ -1,3 +1,17 @@
+/**
+ * Applications Page
+ * 
+ * Displays all job applications in a searchable table with filtering capabilities.
+ * Users can:
+ * - Search applications by company name
+ * - Filter by application status (Applied, Interview, Offer, Rejected)
+ * - Add new applications via dialog
+ * - Edit or delete existing applications
+ * - Click on an application to view full details
+ * 
+ * Protected route - redirects unauthenticated users to login.
+ */
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";

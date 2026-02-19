@@ -1,5 +1,14 @@
 "use client";
 
+/**
+ * Form Component (React Hook Form Integration)
+ * 
+ * Higher-level form components that integrate with React Hook Form for form state management.
+ * Includes Form, FormField, FormItem, FormLabel, FormControl, FormDescription, and FormMessage.
+ * These components wrap the lower-level input/select/etc. components with validation and error handling.
+ * Used in all forms throughout the application (Add/Edit Applications, Signup, Login).
+ */
+
 import * as React from "react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";

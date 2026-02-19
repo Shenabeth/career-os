@@ -1,3 +1,12 @@
+/**
+ * Input Component (HTML)
+ * 
+ * Standard HTML input element with Tailwind CSS styling.
+ * Supports various input types (text, email, password, number, etc.)
+ * and includes focus states, disabled states, and validation styling.
+ * Used in forms throughout the application.
+ */
+
 import * as React from "react";
 
 import { cn } from "./utils";

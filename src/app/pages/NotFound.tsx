@@ -1,3 +1,10 @@
+/**
+ * 404 Not Found Page
+ * 
+ * Displayed when users navigate to a route that doesn't exist.
+ * Provides a user-friendly message and navigation back to the home page.
+ */
+
 import { useNavigate } from "react-router";
 import { Button } from "../components/ui/button";
 

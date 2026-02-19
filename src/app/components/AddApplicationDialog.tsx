@@ -1,3 +1,16 @@
+/**
+ * Add Application Dialog Component
+ * 
+ * Modal dialog for creating new job applications. Allows users to enter:
+ * - Company name, role, and location
+ * - Salary range and application date
+ * - Job posting URL and company website
+ * - Additional notes
+ * - Application status
+ * 
+ * Used on the Applications page. Saves data to context/localStorage on submit.
+ */
+
 import { useState } from "react";
 import { useApplications, ApplicationStatus } from "../contexts/ApplicationContext";
 import { Button } from "../components/ui/button";

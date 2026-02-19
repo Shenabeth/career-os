@@ -1,5 +1,14 @@
 "use client";
 
+/**
+ * Select Component (Radix UI)
+ * 
+ * Dropdown select component built on Radix UI SelectPrimitive with support for
+ * Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel,
+ * SelectItem, and SelectSeparator.
+ * Used for application status filtering, interview round type selection, and outcome choice.
+ */
+
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import {

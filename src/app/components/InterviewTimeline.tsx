@@ -1,3 +1,16 @@
+/**
+ * Interview Timeline Component
+ * 
+ * Displays a chronological timeline of all interview rounds for a single application.
+ * Shows:
+ * - Interview date, round type, and outcome status
+ * - Visual indicators (icons) for passed/failed/pending outcomes
+ * - Interview notes and feedback
+ * 
+ * Used on the Application Detail page to visualize interview progression.
+ * Interviews are sorted chronologically by date.
+ */
+
 import { Interview } from "../contexts/ApplicationContext";
 import { Calendar, CheckCircle, XCircle, Clock } from "lucide-react";
 

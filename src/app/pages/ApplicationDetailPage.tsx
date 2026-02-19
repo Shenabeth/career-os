@@ -1,3 +1,17 @@
+/**
+ * Application Detail Page
+ * 
+ * Displays comprehensive information for a single job application, including:
+ * - Company info, role, location, salary range
+ * - Application status and dates
+ * - Job posting and company website links
+ * - Notes and custom details
+ * - Timeline of all associated interviews
+ * - Edit application or add new interview rounds
+ * 
+ * Protected route - accessible only after clicking on an application from the Applications page.
+ */
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useAuth } from "../contexts/AuthContext";

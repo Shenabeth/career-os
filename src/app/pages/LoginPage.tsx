@@ -1,3 +1,11 @@
+/**
+ * Login Page
+ * 
+ * Allows users to sign into their existing account or try the demo account.
+ * Includes email/password form, error handling, and links to signup and home page.
+ * Redirects authenticated users to dashboard.
+ */
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
@@ -47,13 +55,26 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
             <Briefcase className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl">OfferTrack</span>
+            <span className="text-2xl">CareerOS</span>
           </div>
+          <div className="flex gap-3">
+            <Button variant="ghost" onClick={() => navigate("/login")}>
+              Log In
+            </Button>
+            <Button onClick={() => navigate("/signup")}>Sign Up</Button>
+          </div>
+        </div>
+      </header>
+
+      <div className="flex items-center justify-center p-4 min-h-[calc(100vh-80px)]">
+        <Card className="w-full max-w-md">
+        <CardHeader className="text-center">
           <CardTitle>Welcome Back</CardTitle>
           <CardDescription>Log in to your account to continue</CardDescription>
         </CardHeader>
@@ -122,6 +143,7 @@ export function LoginPage() {
           </form>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }

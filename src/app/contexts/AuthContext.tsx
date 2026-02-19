@@ -1,3 +1,15 @@
+/**
+ * Authentication Context & Provider
+ * 
+ * Manages user authentication state and operations:
+ * - User login/signup/logout
+ * - Persistent authentication via localStorage
+ * - Demo account support (demo@offertrack.com / demo123)
+ * - Provides useAuth() hook for accessing auth state throughout the app
+ * 
+ * All user data is stored locally in the browser (no backend).
+ */
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface User {

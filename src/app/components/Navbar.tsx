@@ -1,3 +1,11 @@
+/**
+ * Navigation Bar Component
+ * 
+ * Horizontal navigation bar displayed at the top of authenticated pages.
+ * Shows navigation links to Dashboard and Applications, user profile name,
+ * settings button, and logout button. Includes CareerOS branding.
+ */
+
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate, Link } from "react-router";
 import { Button } from "../components/ui/button";
@@ -19,7 +27,7 @@ export function Navbar() {
           <div className="flex items-center gap-8">
             <Link to="/dashboard" className="flex items-center gap-2">
               <Briefcase className="h-6 w-6 text-blue-600" />
-              <span className="text-xl">OfferTrack</span>
+              <span className="text-xl">CareerOS</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-1">

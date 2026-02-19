@@ -1,3 +1,12 @@
+/**
+ * Card Component (Utility)
+ * 
+ * Basic card container component with border, padding, and styling.
+ * Used as a layout wrapper for grouped content like the application details,
+ * feature highlights, and form sections. Can be composed with CardHeader,
+ * CardTitle, CardDescription, and CardContent for structured layouts.
+ */
+
 import * as React from "react";
 
 import { cn } from "./utils";

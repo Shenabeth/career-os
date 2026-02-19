@@ -1,3 +1,17 @@
+/**
+ * Application Routes Configuration
+ * 
+ * Defines all client-side routes for the application using React Router.
+ * Routes include:
+ * - / : Landing page (public)
+ * - /login : User login (public)
+ * - /signup : User registration (public)
+ * - /dashboard : Analytics dashboard (protected)
+ * - /applications : List all job applications (protected)
+ * - /applications/:id : View single application details (protected)
+ * - /settings : User settings and account management (protected)
+ */
+
 import { createBrowserRouter } from "react-router";
 import { Root } from "./components/Root";
 import { LandingPage } from "./pages/LandingPage";

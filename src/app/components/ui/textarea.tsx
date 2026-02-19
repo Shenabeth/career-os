@@ -1,3 +1,11 @@
+/**
+ * Textarea Component (HTML)
+ * 
+ * Multi-line text input component with Tailwind CSS styling.
+ * Used for longer text inputs like application notes and interview feedback.
+ * Includes focus states, disabled states, and validation styling.
+ */
+
 import * as React from "react";
 
 import { cn } from "./utils";

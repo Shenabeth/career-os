@@ -1,3 +1,14 @@
+/**
+ * Settings Page
+ * 
+ * User account management page with options to:
+ * - View current user profile information
+ * - Delete user account (with confirmation)
+ * - Logout from application
+ * 
+ * Protected route - redirects unauthenticated users to login.
+ */
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";

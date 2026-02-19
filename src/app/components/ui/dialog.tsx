@@ -1,3 +1,12 @@
+/**
+ * Dialog Component (Radix UI)
+ * 
+ * Modal dialog/popup component for forms and confirmations. Built on Radix UI
+ * DialogPrimitive with support for Dialog, DialogTrigger, DialogContent, DialogHeader,
+ * DialogTitle, DialogDescription, and DialogClose.
+ * Used for Add/Edit Application and Add Interview dialogs.
+ */
+
 "use client";
 
 import * as React from "react";

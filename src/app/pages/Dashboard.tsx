@@ -1,3 +1,16 @@
+/**
+ * Dashboard Page
+ * 
+ * Main analytics dashboard for authenticated users. Displays:
+ * - Application statistics (total, by status)
+ * - Interview metrics (upcoming, completed)
+ * - Response rate analysis
+ * - Pie chart of applications by status
+ * - Bar chart of applications over time
+ * 
+ * Protected route - redirects unauthenticated users to login.
+ */
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useAuth } from "../contexts/AuthContext";

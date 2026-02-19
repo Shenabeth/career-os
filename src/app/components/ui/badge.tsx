@@ -1,3 +1,11 @@
+/**
+ * Badge Component (Utility)
+ * 
+ * Small, inline label component with multiple style variants (default, secondary, destructive, outline).
+ * Used to display application status tags on the applications list (Applied, Interview, Offer, Rejected).
+ * Built with class-variance-authority for variant management.
+ */
+
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
