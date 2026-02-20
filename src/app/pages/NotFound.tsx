@@ -32,7 +32,7 @@ export function NotFound() {
       {/* Footer */}
       <footer className="border-t bg-white py-8 mt-auto">
         <div className="container mx-auto px-4 text-center text-slate-600">
-          <p>© 2026 CareerOS. Built by Shenabeth Jenkins with React and designed for job seekers.</p>
+          <p>© 2026 CareerOS. Built by <a href="https://shenabeth.github.io/" className="text-blue-600 dark:text-blue-400 underline hover:opacity-80">Shenabeth Jenkins</a> with React and designed for job seekers.</p>
         </div>
       </footer>
     </div>
